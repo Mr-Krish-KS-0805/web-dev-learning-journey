@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body{
+            background-color: rgb(65, 72, 88);
+        }
+        .card{
+            background-color: rgba(0, 0, 0, 0.477);
+            display: flex;
+            margin: 25px;
+            border: 2px solid rgb(158, 158, 158) ;
+            width: 50vw;
+            justify-content: space-between;
+            padding: 10px;
+            color: white;
+            font-family:serif    ;
+        }
+
+        .image img {
+            height: 100px;
+            border-radius: 10px;
+            align-items: center;
+        }
+
+        .text h1 {
+            font-size: 25px;
+            margin: 0 ;
+        }
+
+        p {
+            font-size: 13px;
+        }
+
+        .image{
+            position: relative;
+        }
+
+        .capsule {
+            position: absolute;
+            bottom: 8px;
+            right: 4px;
+            background-color: rgb(30, 29, 29);
+            border-radius: 3.5px;
+            padding: 2px 5px;
+            z-index: 10;
+            opacity: 0.85;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head> 
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="image">
+                <img src="https://i.ytimg.com/vi/tVzUXW6siu0/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLACwWOixJVrKLFindK92kYMgTcQbw" alt="">
+
+                <div class="capsule">31:22</div>
+            </div>
+            <div class="text">
+                <h1>Introduction to Backend | Sigma Web Development #2</h1>
+                <p>CodeWithHarry • 727K • 2 months ago </p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

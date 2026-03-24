@@ -1,0 +1,114 @@
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Segoe UI';
+
+}
+
+.logo1 {
+    height: 35px;
+    width: 35px;
+    background-color: black;
+    color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bolder;
+    font-style: italic;
+    /* border-radius: 10px; */
+}
+
+.logo2 {
+    font-size: 19px;
+    font-weight: bolder;
+}
+
+.t {
+    font-size: 7px;
+    /* display: flex;
+            justify-content: center; */
+    padding: 0 2px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.right ul {
+    display: flex;
+    gap: 30px;
+
+}
+
+.right ul li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.right ul li span {
+    padding: 0 5px;
+}
+
+.right ul img {
+    cursor: pointer;
+}
+
+.text1 {
+    text-align: center;
+}
+
+.text1 h1 img {
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 43px;
+    font-family: 'Segoe UI';
+    font-weight: normal;
+    margin: 70px 0 0 0;
+}
+h2 {
+    font-size: 22px;
+    font-family: 'Segoe UI';
+    font-weight: normal;
+    margin: 35px 0 0 0;
+
+}
+.text2{ 
+    text-align: center;
+    padding: 0 18vw;
+
+}
+
+
+.download {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 270px;
+    background-color: rgb(55, 188, 241);
+    border-radius: 5px;
+    margin: 25px 0 0 0;
+    cursor: pointer;
+
+}
+.text3{
+    color: white;
+    font-family: 'Segoe UI';
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+.A{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

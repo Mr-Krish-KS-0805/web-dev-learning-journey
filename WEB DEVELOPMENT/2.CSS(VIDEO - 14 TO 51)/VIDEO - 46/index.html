@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS ANIMATION</title>
+    <style>
+        .container{
+            background-color:aquamarine;
+            height: 80vh;
+            width: 30vw;
+        }
+
+        .box{
+            width: 34px;
+            height: 40px;
+            /* animation-name: krish;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-delay: 1s;
+            animation-direction: reverse; */
+            /* animation-play-state: paused; */
+            /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+            animation: krish 2s ease-in-out 1s infinite reverse;                   
+                       /* krish2 2s ease-in-out 3s infinite; */
+        }
+        @keyframes krish {
+            from{
+                background-color: red;
+            }
+
+            to{
+                background-color: yellow;
+                transform: translateX(1000px);
+            }
+        }
+
+        @keyframes krish2 {
+              0%{
+                transform: rotate(100deg);
+            }
+            20%{
+                transform: rotate(200deg);
+            }
+            50%{
+                transform: rotate(300deg);
+            }
+            80%{
+                transform: rotate(400deg);
+            }
+            100%{
+                transform: rotate(500deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            box
+        </div>
+    </div>
+</body>
+</html>
