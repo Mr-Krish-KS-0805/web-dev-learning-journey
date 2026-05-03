@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.completed {
+    background-color: red;
+}
+
+.NotCompleted{
+    background-color: none;
+}
