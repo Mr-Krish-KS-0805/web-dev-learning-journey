@@ -19,10 +19,12 @@ function App() {
   const [activeId, setActiveId] = useState(null)
   const [editID, seteditID] = useState(null)
 
+  const [filter, setfilter] = useState("all")
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos))
   }, [todos])
-  
+
 
 
   const handleChange = (e) => {
@@ -54,7 +56,7 @@ function App() {
       const newTodo = {
         id: Date.now(),
         text: value,
-        isCompleted: false
+        isCompleted: false,
       }
       setTodos([...todos, newTodo])
       setinput("");
@@ -86,6 +88,32 @@ function App() {
     setTodos(update)
   }
 
+  const filterTodos = () => {
+    if (filter === "all") {
+      return todos
+    }
+
+    else if (filter === "Completed") {
+      return todos.filter((t) => t.isCompleted)
+    }
+
+    else {
+      return todos.filter((t) => !t.isCompleted)
+    }
+  }
+
+  const MarkAllcomplete = () => {
+    const All = todos.map((t) => ({ ...t, isCompleted: true }))
+    setTodos(All)
+  }
+
+  const clearCompleted = () => {
+    const clear = todos.filter((t) => !t.isCompleted)
+    setTodos(clear)
+  }
+
+
+
 
 
   return (
@@ -112,10 +140,19 @@ function App() {
             <h1 className='text-3xl text-center font-semibold text-gray-300'>What's up Krish!</h1>
 
             <div className='w-80 flex flex-col p-2 m-8 '>
-              <h1 className='text-gray-300 font-semibold text-xs '>TODAYS'S TASK</h1>
+              <h1 className='text-gray-300 font-bold text-xs'>YOUR TASK</h1>
+              <div className='flex flex-row justify-between pl-1.5 mt-2 text-lg w-80 font-bold bg-amber-400 rounded-4xl'>
+                <button onClick={() => { setfilter("all") }}>All</button>
+                <button onClick={() => { setfilter("Completed") }}>Completed</button>
+                <button onClick={() => { setfilter("Pending") }}>Pending</button>
+                <div className='flex flex-row bg-gradient-to-l from-amber-400 to-black px-2 rounded-full gap-2 text-center text-lg'>
+                  <button onClick={MarkAllcomplete}>🟢</button>
+                  <button onClick={clearCompleted}>🔴</button>
+                </div>
+              </div>
 
 
-              {todos.map((t, index) => {
+              {filterTodos().map((t, index) => {
                 return (
                   <div key={t.id} className='w-full flex flex-row'>
                     <div className="task px-2 h-13 bg-blue-900 mt-6 rounded-3xl flex flex-row justify-evenly items-center">
@@ -142,9 +179,8 @@ function App() {
 
           {show && (
             <div className='InputArea absolute bottom-40 w-81 h-20 flex flex-col items-center gap-5'>
-              <input onChange={handleChange} value={input} placeholder='Your task' className='text-gray-300 w-80 rounded-full px-4 py-2 text-2xl outline-0 border-4 border-amber-300' type="text" />
+              <input onChange={handleChange} value={input} placeholder='Your task' className='text-gray-300 w-80 rounded-full backdrop-blur-lg px-4 py-2 text-2xl outline-0 border-4 border-amber-300' type="text" />
               <button onClick={addTodo} className=' cursor-pointer bg-emerald-700 text-white rounded-full w-fit px-3 py-1 font-bold active:text-black'>Done</button>
-
             </div>
           )}
 
