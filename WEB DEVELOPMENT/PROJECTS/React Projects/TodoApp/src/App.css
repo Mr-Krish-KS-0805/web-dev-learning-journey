@@ -1,9 +1,14 @@
 @import "tailwindcss";
 
-.completed {
-    background-color: red;
+.task-container {
+    height: 540px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.NotCompleted{
-    background-color: none;
+.task-container::-webkit-scrollbar {
+    display: none;
 }

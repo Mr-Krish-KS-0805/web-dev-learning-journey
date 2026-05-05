@@ -7,6 +7,10 @@ import { HiPlusSm } from "react-icons/hi";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { CiMenuKebab } from "react-icons/ci";
+import TodoItem from './TodoItem';
+import TodoInput from './TodoInput';
+import TodoAddButton from './TodoAddButton';
+
 
 function App() {
   const [todos, setTodos] = useState(() => {
@@ -18,8 +22,8 @@ function App() {
   const [show, setshow] = useState(false)
   const [activeId, setActiveId] = useState(null)
   const [editID, seteditID] = useState(null)
-
   const [filter, setfilter] = useState("all")
+  const [animate, setanimate] = useState(false)
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos))
@@ -45,11 +49,11 @@ function App() {
       alert("Todo already exists")
       return;
     }
-    if (editID) {
+    if (editID !== null) {
       const updated = todos.map((t) => t.id === editID ? { ...t, text: value } : t);
       setTodos(updated)
       setinput("")
-      setshow(true)
+      setshow(false)
       seteditID(null)
     }
     else {
@@ -100,7 +104,10 @@ function App() {
     else {
       return todos.filter((t) => !t.isCompleted)
     }
+
   }
+
+  const list = filterTodos();
 
   const MarkAllcomplete = () => {
     const All = todos.map((t) => ({ ...t, isCompleted: true }))
@@ -111,6 +118,39 @@ function App() {
     const clear = todos.filter((t) => !t.isCompleted)
     setTodos(clear)
   }
+
+  const handleKeyDown = (e) => {
+
+    if (e.key === "Enter") {
+      addTodo()
+      setinput("")
+      setshow(true)
+    }
+
+    if (e.key === "Escape") {
+      seteditID(null)
+      setinput("")
+      setshow(false)
+    }
+  }
+
+
+  const getActiveClass = (btn) => {
+    return filter === btn ? "bg-red-500 rounded-full transition-all duration-600 transform scale-105 ring-1 ring-white " : "";
+  }
+
+  // const handleDone = () => {
+
+  //   const success = addTodo();
+
+  //   if(!success) return;
+
+  //   setanimate(true)
+  //   setTimeout(() => {
+  //     setshow(false)
+  //     setanimate(false)
+  //   }, 700);
+  // }
 
 
 
@@ -123,7 +163,7 @@ function App() {
         <div className='w-93.75 h-dvh bg-[#560591] flex flex-col border-4 items-center rounded-3xl relative'>
 
           <div className="navbar flex justify-center mt-8">
-            <div className='w-80 text-2xl flex justify-between items-center'>
+            <div className='w-82 text-2xl flex justify-between items-center'>
               <HiMenuAlt4 className=' text-gray-300 ' />
 
               <div className='flex gap-5 items-center '>
@@ -137,59 +177,56 @@ function App() {
 
 
           <div className="content flex flex-col mt-8 items-center">
-            <h1 className='text-3xl text-center font-semibold text-gray-300'>What's up Krish!</h1>
+            {show === true ? <TodoInput
+              handleChange={handleChange}
+              addTodo={addTodo}
+              setshow={setshow}
+              show={show}
+              input={input}
+              handleKeyDown={handleKeyDown}
+            /> : <h1 className='text-3xl text-center font-semibold text-gray-300'>What's up Krish!</h1>}
 
-            <div className='w-80 flex flex-col p-2 m-8 '>
+
+
+            <div className='w-90 flex flex-col mt-5 ml-7 p-2  relative'>
               <h1 className='text-gray-300 font-bold text-xs'>YOUR TASK</h1>
-              <div className='flex flex-row justify-between pl-1.5 mt-2 text-lg w-80 font-bold bg-amber-400 rounded-4xl'>
-                <button onClick={() => { setfilter("all") }}>All</button>
-                <button onClick={() => { setfilter("Completed") }}>Completed</button>
-                <button onClick={() => { setfilter("Pending") }}>Pending</button>
-                <div className='flex flex-row bg-gradient-to-l from-amber-400 to-black px-2 rounded-full gap-2 text-center text-lg'>
-                  <button onClick={MarkAllcomplete}>🟢</button>
-                  <button onClick={clearCompleted}>🔴</button>
+              <div className='flex flex-row justify-between mt-2 z-10 text-xl w-78 font-bold bg-amber-600 rounded-4xl backdrop-blur-sm'>
+                <button className={`${getActiveClass("all")} px-1.5 py-1 cursor-pointer`} onClick={() => { setfilter("all") }}>📋</button>
+                <button className={`${getActiveClass("Completed")} px-1.5 py-1 cursor-pointer`} onClick={() => { setfilter("Completed") }}>☑️</button>
+                <button className={`${getActiveClass("")} px-1.5 py-1 cursor-pointer`} onClick={() => { setfilter("") }}>⌛</button>
+                <div className='flex flex-row bg-linear-to-l from-amber-400 to-black px-2 rounded-full gap-2 text-center text-lg'>
+                  <button className=' cursor-pointer' onClick={MarkAllcomplete}>🟢</button>
+                  <button className=' cursor-pointer' onClick={clearCompleted}>🔴</button>
                 </div>
               </div>
 
+              <div className='task-container absolute top-10 pt-7'>
 
-              {filterTodos().map((t, index) => {
-                return (
-                  <div key={t.id} className='w-full flex flex-row'>
-                    <div className="task px-2 h-13 bg-blue-900 mt-6 rounded-3xl flex flex-row justify-evenly items-center">
-                      <div onClick={() => toggleComplete(t.id)} className={`w-6 h-6 rounded-full border-2 ${t.isCompleted ? "bg-green-400" : ""} border-amber-300`}></div>
-                      <div className={`w-55 h-7 text-lg text-amber-400 ml-1 mb-1 overflow-hidden ${t.isCompleted ? "line-through decoration-black decoration-3" : ""}`}>{t.text}</div>
-                      <CiMenuKebab onClick={() => iconShow(t.id)} className=' cursor-pointer text-3xl text-amber-400' />
+                {list.length === 0 ? (
+                  <p className='text-white mt-5'> {filter === "all" ? "No todos" : filter === "Completed" ? "No completed todos" : "No pending todos"}</p>
+                ) : (
+                  list.map((t, index) =>
+                  (
+                    <TodoItem key={t.id}
+                      t={t}
+                      handleEdit={handleEdit}
+                      handleDelete={handleDelete}
+                      toggleComplete={toggleComplete}
+                      activeId={activeId}
+                      iconShow={iconShow}
+                    />
+                  )
 
-                    </div>
-                    {activeId === t.id && (
-                      <div className='w-15 text-2xl gap-2 flex flex-col mt-5 text-black'>
-                        <HiOutlineTrash className='cursor-pointer' onClick={() => handleDelete(t.id)} />
-                        <HiOutlinePencilAlt onClick={() => handleEdit(t.id)} />
-                      </div>
-                    )
-                    }
-                  </div>
-                )
-
-              })}
+                  ))}
+              </div>
 
             </div>
 
           </div>
-
-          {show && (
-            <div className='InputArea absolute bottom-40 w-81 h-20 flex flex-col items-center gap-5'>
-              <input onChange={handleChange} value={input} placeholder='Your task' className='text-gray-300 w-80 rounded-full backdrop-blur-lg px-4 py-2 text-2xl outline-0 border-4 border-amber-300' type="text" />
-              <button onClick={addTodo} className=' cursor-pointer bg-emerald-700 text-white rounded-full w-fit px-3 py-1 font-bold active:text-black'>Done</button>
-            </div>
-          )}
-
-
-
-          <div className="bottomNavbar absolute bottom-7  w-80 flex items-center justify-center">
-            <button onClick={() => setshow(!show)}> <div className="cursor-pointer add text-3xl w-15 h-15 rounded-full bg-[#ff0000] flex justify-center items-center active:text-2xl active:border-2 active:border-black "><HiPlusSm /></div></button>
-          </div>
-
+          <TodoAddButton
+            setshow={setshow}
+            show={show}
+          />
 
 
         </div>
