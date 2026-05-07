@@ -12,3 +12,16 @@
 .task-container::-webkit-scrollbar {
     display: none;
 }
+
+.taskContainerDesktop {
+    height: 348px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
