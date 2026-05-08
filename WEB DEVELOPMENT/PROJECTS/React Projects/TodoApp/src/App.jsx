@@ -28,6 +28,10 @@ function App() {
   const [showModal, setshowModal] = useState(false)
   const [showModal2, setshowModal2] = useState(false)
   const [showModal3, setshowModal3] = useState(false)
+  const [TodoExist, setTodoExist] = useState(false)
+  const [emptyInput, setemptyInput] = useState(false)
+  const [TopToast, setTopToast] = useState("")
+  const [NoTask, setNoTask] = useState(false)
 
 
   useEffect(() => {
@@ -45,13 +49,21 @@ function App() {
     const value = input.trim();
 
     if (!value) {
-      alert("Enter something")
+      setemptyInput(true)
+      setTopToast("empty")
+      setTimeout(() => {
+        setemptyInput(false)
+      }, 3 * 1000);
       return;
     }
     const exists = todos.some((t) => t.text === value);
 
     if (exists) {
-      alert("Todo already exists")
+      setTodoExist(true)
+      setTopToast("exist")
+      setTimeout(() => {
+        setTodoExist(false)
+      }, 3 * 1000);
       return;
     }
     if (editID !== null) {
@@ -80,9 +92,9 @@ function App() {
     setshowModal(true)
   }
   const handleDeleteClick2 = () => {
-    if(todos.length == 0) {
+    if (todos.length == 0) {
       setshowModal3(true)
-    } else{
+    } else {
       setshowModal2(true)
     }
   }
@@ -159,7 +171,12 @@ function App() {
   const clearCompleted = () => {
     const clear = todos.filter((t) => !t.isCompleted)
     if (completedTodo.length === 0) {
-      alert("No completed todo")
+      setNoTask(true)
+      setTopToast("NoTask")
+      setTimeout(() => {
+        setNoTask(false)
+      }, 3 * 1000);
+
     }
     else {
 
@@ -301,11 +318,14 @@ function App() {
             )))}
 
           </div>
+          <div className='text-xl text-white absolute bottom-5  w-[80vw] flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "empty" ? "z-20" : "z-10"} ${emptyInput ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible"} rounded-xl py-2 `}>Please type something!</p></div>
+          <div className='text-xl text-white absolute bottom-5  w-[80vw] flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "exist" ? "z-20" : "z-10"} ${TodoExist ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible "} rounded-xl py-2`}>Todo exist!</p></div>
+          <div className='text-xl text-white absolute bottom-5  w-[80vw] flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "Notask" ? "z-20" : "z-10"} ${NoTask ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible "} rounded-xl py-2`}>No Completed todo!</p></div>
 
         </div>
 
-        
-        <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal?"opacity-100 visible" : "opacity-0 invisible"}`}>
+
+        <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal ? "opacity-100 visible" : "opacity-0 invisible"}`}>
           <div className={`w-[30vw] h-70 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
             <div className='bg-[#ff00003e] w-15 h-15 flex items-center justify-center rounded-full border-2 border-red-400 '><HiOutlineTrash className='text-4xl text-red-500' /></div>
             <h1 className='text-4xl text-[#f9fafb] font-bold'>Delete Task?</h1>
@@ -316,8 +336,8 @@ function App() {
             </div>
           </div>
         </div>
-        
-        <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal2?"opacity-100 visible" : "opacity-0 invisible"}`}>
+
+        <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal2 ? "opacity-100 visible" : "opacity-0 invisible"}`}>
           <div className={`w-[30vw] h-70 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal2 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
             <div className='bg-[#ff00003e] w-15 h-15 flex items-center justify-center rounded-full border-2 border-red-400 '><HiOutlineTrash className='text-4xl text-red-500' /></div>
             <h1 className='text-4xl text-[#f9fafb] font-bold'>Delete All Task?</h1>
@@ -327,15 +347,17 @@ function App() {
               <button onClick={confirmDeleteAll} className='text-[#f9fafb] text-2xl px-10 py-1 rounded-lg bg-[#ff0000] font-semibold'>Delete</button>
             </div>
           </div>
-        </div> 
-        
-        <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal3?"opacity-100 visible" : "opacity-0 invisible"}`}>
-          <div className={`w-[30vw] h-70 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal3? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
+        </div>
+
+        <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal3 ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+          <div className={`w-[30vw] h-70 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal3 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
             <h1 className='text-4xl text-[#f9fafb] font-bold'>No Task Buddy</h1>
-              <button onClick={() => setshowModal3(false)} className='text-[#f9fafb] text-2xl px-6 py-1 rounded-lg bg-[#283647] font-semibold'>OK</button>
-            </div>
+            <h2 className='text-xl text-gray-400'>Start by adding a new task.</h2>
+            <button onClick={() => setshowModal3(false)} className='text-[#f9fafb] text-2xl px-6 py-1 rounded-lg bg-[#283647] font-semibold'>OK</button>
           </div>
-        
+        </div>
+
+
 
 
       </div>
