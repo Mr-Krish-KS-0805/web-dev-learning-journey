@@ -5,19 +5,19 @@ import { IoLayers } from "react-icons/io5";
 import { LuBadgeCheck } from "react-icons/lu";
 import { FaRegClock } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
-import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi"
+import { HiOutlineTrash, HiOutlinePencilAlt, HiOutlineX } from "react-icons/hi"
 
-const DesktopLayout = ({filter, setfilter, getActiveClass, search, setsearch, todos, completedTodo, pendingTodo, handleKeyDown, handleChange, input, addTodo, clearCompleted, handleDeleteClick2, list, highlightText, toggleComplete, handleEdit, handleDeleteClick, TopToast, emptyInput, TodoExist, NoTask, showModal, showModal2, showModal3, cancelDelete, confirmDelete, cancelDeleteAll, confirmDeleteAll, setshowModal3 }) => {
+const DesktopLayout = ({ filter, setfilter,setpriority,priority, getActiveClass, search, setsearch, setshowSearch, showSearch, todos, completedTodo, pendingTodo, handleKeyDown, handleChange, input, addTodo, clearCompleted, handleDeleteClick2, list, highlightText, toggleComplete, handleEdit, handleDeleteClick, TopToast, emptyInput, TodoExist, NoTask, showModal, showModal2, showModal3, cancelDelete, confirmDelete, cancelDeleteAll, confirmDeleteAll, setshowModal3 }) => {
     return (
         <>
             <div className="min-h-screen min-w-screen bg-[#0b1220] flex flex-row gap-3 relative overflow-hidden">
 
-                <div className='sidebar min-h-screen w-[20vw] bg-[#1f2937] items-center flex flex-col p-3 gap-6 relative pt-6'>
+                <div className='sidebar min-h-screen w-[20vw] bg-[#1f2937] items-center flex flex-col py-3 px-1 gap-6 relative pt-6'>
                     <h1 className='w-full text-center text-3xl font-bold text-[#f9fafb]'>Todo App</h1>
 
-                    <div className='text-[#f9fafb] text-xl w-full  flex flex-col gap-7'>
+                    <div className='text-[#f9fafb] text-xl w-[99%] flex flex-col gap-5'>
                         <div onClick={() => setfilter("all")} className={`${getActiveClass("all")} font-semibold rounded-xl py-3 px-2 cursor-pointer`}>📋 All</div>
-                        <div onClick={() => setfilter("completed")} className={`${getActiveClass("completed")} font-semibold rounded-xl py-3 px-2 cursor-pointer`}>✅ Completed</div>
+                        <div onClick={() => setfilter("completed")} className={`${getActiveClass("completed")} font-semibold rounded-xl py-3 pl-2 cursor-pointer`}>✅ Completed</div>
                         <div onClick={() => setfilter("pending")} className={`${getActiveClass("pending")} font-semibold rounded-xl py-3 px-2 cursor-pointer`}>⏰ Pending</div>
 
                     </div>
@@ -37,25 +37,25 @@ const DesktopLayout = ({filter, setfilter, getActiveClass, search, setsearch, to
                             <p className='text-gray-400 text-sm font-medium'>What's up Krish</p>
                         </div>
 
-                        <div className='flex flex-row gap-3'>
-                            <input value={search} onChange={(e) => setsearch(e.target.value)} type="text" className='w-[30vw] h-10 bg-[#273449] py-4 px-5 text-xl rounded-xl outline-0 border border-gray-500 text-[#f9fafb] placeholder:text-gray-400' />
-                            <div className='w-10 h-10 bg-slate-900 flex items-center justify-center rounded-md'><HiOutlineSearch className='text-xl' /></div>
+                        <div className='flex flex-row gap-3 relative'>
+                            <input value={search} onChange={(e) => setsearch(e.target.value)} type="text" className={`w-0 h-10 bg-[#273449] py-4 px-4 text-xl rounded-md outline-0 border border-gray-500 text-[#f9fafb] placeholder:text-gray-400 transition-all duration-500 ${showSearch ? " w-[30vw] visible" : "translate-x-0 invisible"}}`} />
+                            <div onClick={() => setshowSearch(!showSearch)} className='w-10 h-10 z-20 bg-slate-900 flex items-center justify-center rounded-md absolute right-13'><HiOutlineSearch className={`text-xl transition-all  ${showSearch ? "invisible rotate-90 duration-10" : "duration-600 rotate-0 visible"}`} /><HiOutlineX className={`text-xl absolute transition-all  ${showSearch ? "duration-400 rotate-90 visible" : "duration-10 rotate-0 invisible"}`} /></div>
                             <div className='w-10 h-10 bg-slate-900 flex items-center justify-center rounded-md'><HiOutlineBell className='text-xl' /></div>
                         </div>
 
                     </div>
 
-                    <div className='py-3 flex flex-row w-full justify-between px-5 '>
+                    <div className='py-3 flex flex-row w-full justify-between px-5 gap-5'>
 
-                        <div className='flex flex-row gap-5 items-center w-[30%] py-7 px-3 bg-linear-to-br from-[#000000] to-[#530093] rounded-xl hover:scale-105 transition-all duration-500 origin-center will-change-transform '>
+                        <div className='flex flex-row justify-evenly items-center w-[35%] py-7 px-3 bg-linear-to-br from-[#000000] to-[#530093] rounded-xl hover:scale-105 transition-all duration-500 origin-center will-change-transform '>
                             <div className='bg-purple-600 w-15 h-15 flex items-center justify-center rounded-full'><IoLayers className='text-3xl text-white' /></div>
-                            <div >
-                                <h1 className='text-[#f9fafb] text-xl font-semibold'>Total Tasks</h1>
+                            <div>
+                                <h1 className='text-[#f9fafb] text-xl font-semibold'>All Tasks</h1>
                                 <h2 className='text-[#f9fafb] text-3xl'>{todos.length}</h2>
                             </div>
                         </div>
 
-                        <div className='flex flex-row gap-5 items-center w-[30%]  py-7 px-3 bg-linear-to-br from-[#000000] to-[#0e8303]  rounded-xl hover:scale-105 transition-all duration-500 origin-center will-change-transform '>
+                        <div className='flex flex-row justify-evenly items-center w-[35%]  py-7 px-3 bg-linear-to-br from-[#000000] to-[#0e8303]  rounded-xl hover:scale-105 transition-all duration-500 origin-center will-change-transform '>
                             <div className='bg-green-500 w-15 h-15 flex items-center justify-center rounded-full'><LuBadgeCheck className='text-3xl text-white' /></div>
                             <div>
                                 <h1 className='text-[#f9fafb] text-xl font-semibold'>Completed</h1>
@@ -63,7 +63,7 @@ const DesktopLayout = ({filter, setfilter, getActiveClass, search, setsearch, to
                             </div>
                         </div>
 
-                        <div className='flex flex-row gap-5 items-center w-[30%] py-7 px-3 bg-linear-to-br from-[#000000] to-[#cf8e00] rounded-xl hover:scale-105 transition-all duration-500 origin-center will-change-transform '>
+                        <div className='flex flex-row justify-evenly items-center w-[35%] py-7 px-3 bg-linear-to-br from-[#000000] to-[#cf8e00] rounded-xl hover:scale-105 transition-all duration-500 origin-center will-change-transform '>
                             <div className='bg-orange-300 w-15 h-15 flex items-center justify-center rounded-full'><FaRegClock className='text-3xl text-white' /></div>
                             <div>
                                 <h1 className='text-[#f9fafb] text-xl font-semibold'>Pending</h1>
@@ -73,19 +73,24 @@ const DesktopLayout = ({filter, setfilter, getActiveClass, search, setsearch, to
 
                     </div>
 
-                    <div className=' w-full px-5 flex justify-center items-center gap-2 '>
-                        <input autoFocus onKeyDown={handleKeyDown} onChange={handleChange} value={input} type="text" placeholder='Add a new task...' className='bg-[#273449] w-full py-3 px-5 text-xl rounded-xl outline-0 border border-gray-500 text-[#f9fafb] placeholder:text-gray-400' />
+                    <div className=' w-full px-5 flex justify-center items-center gap-5 '>
+                        <select value={priority} onChange={(e)=>setpriority(e.target.value)} className=' text-red-500 bg-gray-900'>
+                            <option  className='text-sm text-red-500' value="High">High</option>
+                            <option  className='text-sm text-amber-400' value="Medium">Medium</option>
+                            <option  className='text-sm text-green-300' value="Low ">Low</option>
+                        </select>
+                        <input autoFocus onKeyDown={handleKeyDown} onChange={handleChange} value={input} type="text" placeholder='Add a new task...' className='bg-[#273449] w-[90%]  py-3 px-5 text-xl rounded-xl outline-0 border border-gray-500 text-[#f9fafb] placeholder:text-gray-400' />
+
                         <button onClick={addTodo} className='w-25 py-4 text-[#f9fafb] font-bold text-xl bg-linear-to-tr from-[#000000] to-[#7415bd] rounded-xl active:text-amber-500 '>Add</button>
                     </div>
-
-                    <div className='flex flex-row justify-between items-center w-full px-5 py-1'>
+                    <div className='flex flex-row justify-between items-center w-full pl-10  py-1'>
                         <h1 className='py-3 text-[#f9fafb] text-2xl font-semiboldbold'>Your Tasks</h1>
                         <div className=' flex flex-row justify-center items-center gap-5 text-2xl '>
                             <button onClick={clearCompleted} className='flex flex-row justify-center items-center gap-2 rounded-xl border border-gray-500 bg-[#273449] py-1 px-3 font-semibold text-green-700 '><HiOutlineTrash className='text-green-700 text-2xl' /> Clear completed</button>
                             <button onClick={handleDeleteClick2} className='flex flex-row justify-center items-center gap-2  rounded-xl border border-gray-500  bg-[#273449] py-1 px-3 font-semibold text-red-700 '><HiOutlineTrash className='text-red-700 text-2xl' />Clear all</button>
                         </div>
                     </div>
-        
+
                     <div className='taskContainerDesktop w-full px-5 flex flex-col gap-3'>
 
                         {list.length === 0 ? (<p className='text-3xl flex justify-center text-white mt-10 text-center opacity-80'>{filter === "all" ? "No todos ! 😊 Start by adding a new task " : filter === "completed" ? "No completed todos" : "No pending todos"}</p>

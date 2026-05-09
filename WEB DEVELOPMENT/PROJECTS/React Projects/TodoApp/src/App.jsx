@@ -25,6 +25,7 @@ function App() {
   const [filter, setfilter] = useState("all")
   const [animate, setanimate] = useState(false)
   const [search, setsearch] = useState("")
+  const [showSearch, setshowSearch] = useState(false)
   const [DeleteId, setDeleteId] = useState(null)
   const [showModal, setshowModal] = useState(false)
   const [showModal2, setshowModal2] = useState(false)
@@ -33,6 +34,7 @@ function App() {
   const [emptyInput, setemptyInput] = useState(false)
   const [TopToast, setTopToast] = useState("")
   const [NoTask, setNoTask] = useState(false)
+  const [priority, setpriority] = useState("")
 
 
   useEffect(() => {
@@ -79,6 +81,7 @@ function App() {
         id: Date.now(),
         text: value,
         isCompleted: false,
+        priority: priority,
       }
       setTodos([...todos, newTodo])
       setinput("");
@@ -225,6 +228,8 @@ function App() {
           getActiveClass={getActiveClass}
           search={search}
           setsearch={setsearch}
+          showSearch={showSearch}
+          setshowSearch={setshowSearch}
           todos={todos}
           completedTodo={completedTodo}
           pendingTodo={pendingTodo}
@@ -251,6 +256,8 @@ function App() {
           cancelDeleteAll={cancelDeleteAll}
           confirmDeleteAll={confirmDeleteAll}
           setshowModal3={setshowModal3}
+          setpriority={setpriority}
+          priority={priority}
         />
       </div>
 
