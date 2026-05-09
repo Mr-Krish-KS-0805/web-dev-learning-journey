@@ -6,12 +6,12 @@ import { HiPlusSm } from "react-icons/hi";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { CiMenuKebab } from "react-icons/ci";
-import TodoItem from './TodoItem';
-import TodoInput from './TodoInput';
-import TodoAddButton from './TodoAddButton';
+import TodoItem from '../components/TodoItem';
+import TodoInput from '../components/TodoInput';
+import TodoAddButton from '../components/TodoAddButton';
 
 const MobileLayout = (props) => {
-    const { handleChange, addTodo, setshow, show, input, handleKeyDown, getActiveClass, setfilter, filter, MarkAllcomplete, clearCompleted, list, handleEdit, handleDelete, toggleComplete, activeId, iconShow } = props;
+    const { handleChange, addTodo, setshow, show, input, handleKeyDown, getActiveClass, setfilter, filter, MarkAllcomplete, clearCompleted, list, handleEdit, confirmDelete, toggleComplete, activeId, iconShow } = props;
     return (
         <>
             <div className='min-h-screen bg-blue-300 flex flex-col items-center overflow-hidden'>
@@ -49,7 +49,7 @@ const MobileLayout = (props) => {
 
                                 {list.length === 0 ? (<p className='text-white mt-5'> {filter === "all" ? "No todos" : filter === "Completed" ? "No completed todos" : "No pending todos"}</p>
                                 ) : (list.map((t, index) => (
-                                    <TodoItem key={t.id} t={t} handleEdit={handleEdit} handleDelete={handleDelete} toggleComplete={toggleComplete} activeId={activeId} iconShow={iconShow} />
+                                    <TodoItem key={t.id} t={t} handleEdit={handleEdit} confirmDelete={confirmDelete} toggleComplete={toggleComplete} activeId={activeId} iconShow={iconShow} />
                                 )))}
                             </div>
                         </div>

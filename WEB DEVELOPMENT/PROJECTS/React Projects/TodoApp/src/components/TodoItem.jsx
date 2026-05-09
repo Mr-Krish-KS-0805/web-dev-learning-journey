@@ -3,7 +3,7 @@ import { CiMenuKebab } from 'react-icons/ci';
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi"
 
 const TodoItem = (props) => {
-    const { t, handleDelete, handleEdit, toggleComplete, activeId, iconShow, isCompleted  } = props;
+    const { t, confirmDelete, handleEdit, toggleComplete, activeId, iconShow, isCompleted  } = props;
     console.log(t)
     return (
         <>
@@ -16,7 +16,7 @@ const TodoItem = (props) => {
                 </div>
                 {activeId === t.id && (
                     <div className='w-15 text-2xl gap-2 flex flex-col mt-4 text-black'>
-                        <HiOutlineTrash className='cursor-pointer' onClick={() => handleDelete(t.id)} />
+                        <HiOutlineTrash className='cursor-pointer' onClick={() => confirmDelete(t.id)} />
                         <HiOutlinePencilAlt className='cursor-pointer' onClick={() => handleEdit(t.id)} />
                     </div>
                 )
