@@ -14,7 +14,7 @@
 }
 
 .taskContainerDesktop {
-    height: 55vh;
+    height: min-content;
     overflow-y: auto;
     overflow-x: hidden;
 

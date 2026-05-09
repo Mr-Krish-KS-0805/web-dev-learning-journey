@@ -114,31 +114,31 @@ const DesktopLayout = ({filter, setfilter, getActiveClass, search, setsearch, to
 
 
                 <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-                    <div className={`w-[30vw] h-70 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
+                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
                         <div className='bg-[#ff00003e] w-15 h-15 flex items-center justify-center rounded-full border-2 border-red-400 '><HiOutlineTrash className='text-4xl text-red-500' /></div>
                         <h1 className='text-4xl text-[#f9fafb] font-bold'>Delete Task?</h1>
                         <h2 className='text-xl text-gray-400'>This action cannot be undone.</h2>
                         <div className='w-full flex flex-row justify-evenly'>
-                            <button onClick={cancelDelete} className='text-[#f9fafb] text-2xl px-10 py-1 rounded-lg bg-[#283647] font-semibold'>Cancel</button>
-                            <button onClick={confirmDelete} className='text-[#f9fafb] text-2xl px-10 py-1 rounded-lg bg-[#ff0000] font-semibold'>Delete</button>
+                            <button onClick={cancelDelete} className='text-[#f9fafb] text-2xl px-5 py-1 rounded-lg bg-[#283647] font-semibold'>Cancel</button>
+                            <button onClick={confirmDelete} className='text-[#f9fafb] text-2xl px-5 py-1 rounded-lg bg-[#ff0000] font-semibold'>Delete</button>
                         </div>
                     </div>
                 </div>
 
                 <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal2 ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-                    <div className={`w-[30vw] h-70 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal2 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
+                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal2 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
                         <div className='bg-[#ff00003e] w-15 h-15 flex items-center justify-center rounded-full border-2 border-red-400 '><HiOutlineTrash className='text-4xl text-red-500' /></div>
                         <h1 className='text-4xl text-[#f9fafb] font-bold'>Delete All Task?</h1>
                         <h2 className='text-xl text-gray-400'>This action cannot be undone.</h2>
-                        <div className='w-full flex flex-row justify-evenly'>
-                            <button onClick={cancelDeleteAll} className='text-[#f9fafb] text-2xl px-10 py-1 rounded-lg bg-[#283647] font-semibold'>Cancel</button>
-                            <button onClick={confirmDeleteAll} className='text-[#f9fafb] text-2xl px-10 py-1 rounded-lg bg-[#ff0000] font-semibold'>Delete</button>
+                        <div className='w-full flex flex-row justify-evenly gap-5'>
+                            <button onClick={cancelDeleteAll} className='text-[#f9fafb] text-2xl px-5 py-1 rounded-lg bg-[#283647] font-semibold'>Cancel</button>
+                            <button onClick={confirmDeleteAll} className='text-[#f9fafb] text-2xl px-5 py-1 rounded-lg bg-[#ff0000] font-semibold'>Delete</button>
                         </div>
                     </div>
                 </div>
 
                 <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal3 ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-                    <div className={`w-[30vw] h-70 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal3 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
+                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal3 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
                         <h1 className='text-4xl text-[#f9fafb] font-bold'>No Task Buddy</h1>
                         <h2 className='text-xl text-gray-400'>Start by adding a new task.</h2>
                         <button onClick={() => setshowModal3(false)} className='text-[#f9fafb] text-2xl px-6 py-1 rounded-lg bg-[#283647] font-semibold'>OK</button>
