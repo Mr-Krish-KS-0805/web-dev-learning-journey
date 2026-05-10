@@ -225,6 +225,13 @@ function App() {
     setToastType(type)
   }
 
+  const formatDate = (date) =>{
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric"
+    })
+  }
+
 
   return (
     <>
@@ -266,6 +273,7 @@ function App() {
           getpriority={getpriority}
           inputDate={inputDate}
           setinputDate={setinputDate}
+          formatDate={formatDate}
 
         />
       </div>

@@ -7,7 +7,7 @@ import { FaRegClock } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { HiOutlineTrash, HiOutlinePencilAlt, HiOutlineX } from "react-icons/hi"
 
-const DesktopLayout = ({ filter, setinputDate, inputDate, setfilter, setpriority, priority, getActiveClass, getpriority, search, setsearch, setshowSearch, showSearch, todos, completedTodo, pendingTodo, handleKeyDown, handleChange, input, addTodo, clearCompleted, handleDeleteClick2, list, highlightText, toggleComplete, handleEdit, handleDeleteClick, TopToast, setToastMessage, ToastType, ToastMessage, ModalTypes, setModalTypes, cancelDelete, confirmDelete, cancelDeleteAll, confirmDeleteAll }) => {
+const DesktopLayout = ({ filter,formatDate, setinputDate, inputDate, setfilter, setpriority, priority, getActiveClass, getpriority, search, setsearch, setshowSearch, showSearch, todos, completedTodo, pendingTodo, handleKeyDown, handleChange, input, addTodo, clearCompleted, handleDeleteClick2, list, highlightText, toggleComplete, handleEdit, handleDeleteClick, TopToast, setToastMessage, ToastType, ToastMessage, ModalTypes, setModalTypes, cancelDelete, confirmDelete, cancelDeleteAll, confirmDeleteAll }) => {
     return (
         <>
             <div className="min-h-screen min-w-screen bg-[#0b1220] flex flex-row gap-3 relative overflow-hidden">
@@ -99,7 +99,7 @@ const DesktopLayout = ({ filter, setinputDate, inputDate, setfilter, setpriority
                                         <h2 className='text-white mb-1 text-2xl'>{highlightText(t.text)}</h2>
                                         <div className='flex flex-row gap-5 text-sm text-gray-400'>
                                             <p>{t.priority === "high" ? "🔴" : t.priority === "medium" ? "🟡" : t.priority === "low" ? "🟢" : ""}{t.priority}</p>
-                                            <p>{t.date}</p>
+                                            <p>🗓️ {formatDate(t.date)}</p>
                                         </div>
                                     </div>
                                 </div>
