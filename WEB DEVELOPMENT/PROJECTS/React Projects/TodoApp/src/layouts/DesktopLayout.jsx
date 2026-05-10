@@ -95,7 +95,13 @@ const DesktopLayout = ({ filter, setinputDate, inputDate, setfilter, setpriority
 
                                 <div className='flex flex-row items-center gap-5'>
                                     <FaCheckCircle onClick={() => toggleComplete(t.id)} className={`${t.isCompleted ? "text-[#40ff00] duration-200 transition-transform scale-110 " : "text-gray-400 transition-all duration-200"} text-4xl`} />
-                                    <h2 className='text-white mb-1 text-2xl'>{highlightText(t.text)}</h2>
+                                    <div>
+                                        <h2 className='text-white mb-1 text-2xl'>{highlightText(t.text)}</h2>
+                                        <div className='flex flex-row gap-5 text-sm text-gray-400'>
+                                            <p>{t.priority === "high" ? "🔴" : t.priority === "medium" ? "🟡" : t.priority === "low" ? "🟢" : ""}{t.priority}</p>
+                                            <p>{t.date}</p>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className='flex flex-row items-center gap-6 text-4xl '>
