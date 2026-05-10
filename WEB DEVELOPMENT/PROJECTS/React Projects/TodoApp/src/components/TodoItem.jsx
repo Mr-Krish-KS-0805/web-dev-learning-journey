@@ -4,7 +4,6 @@ import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi"
 
 const TodoItem = (props) => {
     const { t, confirmDelete, handleEdit, toggleComplete, activeId, iconShow, isCompleted  } = props;
-    console.log(t)
     return (
         <>
             <div className='w-full flex flex-row '>

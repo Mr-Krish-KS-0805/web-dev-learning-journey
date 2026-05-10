@@ -27,15 +27,12 @@ function App() {
   const [search, setsearch] = useState("")
   const [showSearch, setshowSearch] = useState(false)
   const [DeleteId, setDeleteId] = useState(null)
-  const [showModal, setshowModal] = useState(false)
-  const [showModal2, setshowModal2] = useState(false)
-  const [showModal3, setshowModal3] = useState(false)
-  const [TodoExist, setTodoExist] = useState(false)
-  const [emptyInput, setemptyInput] = useState(false)
+  const [ModalTypes, setModalTypes] = useState("")
   const [TopToast, setTopToast] = useState("")
-  const [NoTask, setNoTask] = useState(false)
-  const [priority, setpriority] = useState("")
-
+  const [ToastMessage, setToastMessage] = useState("")
+  const [ToastType, setToastType] = useState("")
+  const [priority, setpriority] = useState("high")
+  const [inputDate, setinputDate] = useState("")
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos))
@@ -52,20 +49,20 @@ function App() {
     const value = input.trim();
 
     if (!value) {
-      setemptyInput(true)
+      showToastMessage("Input cannot be empty", "error")
       setTopToast("empty")
-      setTimeout(() => {
-        setemptyInput(false)
+      setTimeout(() => { 
+        setToastType("")
       }, 3 * 1000);
       return;
     }
     const exists = todos.some((t) => t.text === value);
 
     if (exists) {
-      setTodoExist(true)
+      showToastMessage("Todo already exists", "warning")
       setTopToast("exist")
       setTimeout(() => {
-        setTodoExist(false)
+        setToastType("")
       }, 3 * 1000);
       return;
     }
@@ -82,24 +79,25 @@ function App() {
         text: value,
         isCompleted: false,
         priority: priority,
+        date: inputDate,
       }
       setTodos([...todos, newTodo])
       setinput("");
       setshow(false)
+      setinputDate("")
     }
   }
 
 
-
   const handleDeleteClick = (id) => {
     setDeleteId(id)
-    setshowModal(true)
+    setModalTypes("delete")
   }
   const handleDeleteClick2 = () => {
     if (todos.length == 0) {
-      setshowModal3(true)
+      setModalTypes("empty")
     } else {
-      setshowModal2(true)
+      setModalTypes("deleteAll")
     }
   }
 
@@ -107,23 +105,22 @@ function App() {
     const updateTodo = todos.filter((t) => t.id !== DeleteId)
     setTodos(updateTodo)
     setDeleteId(null)
-    setshowModal(false)
+    setModalTypes("")
   }
 
   const cancelDelete = () => {
-    setshowModal(false)
+    setModalTypes("")
     setDeleteId(null)
   }
 
   const confirmDeleteAll = () => {
     setTodos([])
-    setshowModal2(false)
+    setModalTypes("")
   }
 
   const cancelDeleteAll = () => {
-    setshowModal2(false)
+    setModalTypes("")
   }
-
 
 
   const handleEdit = (id) => {
@@ -175,10 +172,10 @@ function App() {
   const clearCompleted = () => {
     const clear = todos.filter((t) => !t.isCompleted)
     if (completedTodo.length === 0) {
-      setNoTask(true)
-      setTopToast("NoTask")
+      setToastMessage("No completed task", "!completed")
+      setToastType("!completed")
       setTimeout(() => {
-        setNoTask(false)
+        setToastType("")
       }, 3 * 1000);
 
     }
@@ -208,6 +205,10 @@ function App() {
       btn === "all" ? "bg-linear-to-br from-[#000000] to-[#530093] transition-all scale-105 duration-600" : btn === "completed" ? "bg-linear-to-br from-[#000000] to-[#0e8303] transition-all scale-105 duration-600" : "bg-linear-to-br from-[#000000] to-[#cf8e00] transition-all scale-105 duration-600" : ""
   }
 
+  const getpriority = (priority) => {
+    return (priority === "high" ? "border-r-4 border-r-red-400" : priority === "medium" ? "border-r-4 border-r-amber-300" : priority === "low" ? "border-r-4 border-r-green-400" : "")
+  }
+
   const highlightText = (text) => {
     if (!search) return text
 
@@ -216,6 +217,12 @@ function App() {
     return parts.map((part, index) => part.toLocaleLowerCase() === search.toLocaleLowerCase() ? (
       <span key={index} className='text-yellow-400 font-bold'>{part}</span>
     ) : part);
+  }
+
+
+  const showToastMessage = (message, type) => {
+    setToastMessage(message)
+    setToastType(type)
   }
 
 
@@ -245,41 +252,43 @@ function App() {
           handleEdit={handleEdit}
           handleDeleteClick={handleDeleteClick}
           TopToast={TopToast}
-          emptyInput={emptyInput}
-          TodoExist={TodoExist}
-          NoTask={NoTask}
-          showModal={showModal}
-          showModal2={showModal2}
-          showModal3={showModal3}
+          ModalTypes={ModalTypes}
+          setModalTypes={setModalTypes}
+          setToastMessage={setToastMessage}
+          ToastType={ToastType}
+          ToastMessage={ToastMessage}
           cancelDelete={cancelDelete}
           confirmDelete={confirmDelete}
           cancelDeleteAll={cancelDeleteAll}
           confirmDeleteAll={confirmDeleteAll}
-          setshowModal3={setshowModal3}
           setpriority={setpriority}
           priority={priority}
+          getpriority={getpriority}
+          inputDate={inputDate}
+          setinputDate={setinputDate}
+
         />
       </div>
 
       <div className='block md:hidden'>
         <MobileLayout
-        handleChange={handleChange}
-        addTodo={addTodo}
-        setshow={setshow}
-        show={show}
-        input={input}
-        handleKeyDown={handleKeyDown}
-        getActiveClass={getActiveClass}
-        setfilter={setfilter}
-        filter={filter}
-        MarkAllcomplete={MarkAllcomplete}
-        clearCompleted={clearCompleted}
-        list={list}
-        handleEdit={handleEdit}
-        confirmDelete={confirmDelete}
-        toggleComplete={toggleComplete}
-        activeId={activeId} 
-        iconShow={iconShow}
+          handleChange={handleChange}
+          addTodo={addTodo}
+          setshow={setshow}
+          show={show}
+          input={input}
+          handleKeyDown={handleKeyDown}
+          getActiveClass={getActiveClass}
+          setfilter={setfilter}
+          filter={filter}
+          MarkAllcomplete={MarkAllcomplete}
+          clearCompleted={clearCompleted}
+          list={list}
+          handleEdit={handleEdit}
+          confirmDelete={confirmDelete}
+          toggleComplete={toggleComplete}
+          activeId={activeId}
+          iconShow={iconShow}
         />
       </div>
     </>

@@ -7,7 +7,7 @@ import { FaRegClock } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { HiOutlineTrash, HiOutlinePencilAlt, HiOutlineX } from "react-icons/hi"
 
-const DesktopLayout = ({ filter, setfilter,setpriority,priority, getActiveClass, search, setsearch, setshowSearch, showSearch, todos, completedTodo, pendingTodo, handleKeyDown, handleChange, input, addTodo, clearCompleted, handleDeleteClick2, list, highlightText, toggleComplete, handleEdit, handleDeleteClick, TopToast, emptyInput, TodoExist, NoTask, showModal, showModal2, showModal3, cancelDelete, confirmDelete, cancelDeleteAll, confirmDeleteAll, setshowModal3 }) => {
+const DesktopLayout = ({ filter, setinputDate, inputDate, setfilter, setpriority, priority, getActiveClass, getpriority, search, setsearch, setshowSearch, showSearch, todos, completedTodo, pendingTodo, handleKeyDown, handleChange, input, addTodo, clearCompleted, handleDeleteClick2, list, highlightText, toggleComplete, handleEdit, handleDeleteClick, TopToast, setToastMessage, ToastType, ToastMessage, ModalTypes, setModalTypes, cancelDelete, confirmDelete, cancelDeleteAll, confirmDeleteAll }) => {
     return (
         <>
             <div className="min-h-screen min-w-screen bg-[#0b1220] flex flex-row gap-3 relative overflow-hidden">
@@ -16,9 +16,9 @@ const DesktopLayout = ({ filter, setfilter,setpriority,priority, getActiveClass,
                     <h1 className='w-full text-center text-3xl font-bold text-[#f9fafb]'>Todo App</h1>
 
                     <div className='text-[#f9fafb] text-xl w-[99%] flex flex-col gap-5'>
-                        <div onClick={() => setfilter("all")} className={`${getActiveClass("all")} font-semibold rounded-xl py-3 px-2 cursor-pointer`}>📋 All</div>
-                        <div onClick={() => setfilter("completed")} className={`${getActiveClass("completed")} font-semibold rounded-xl py-3 pl-2 cursor-pointer`}>✅ Completed</div>
-                        <div onClick={() => setfilter("pending")} className={`${getActiveClass("pending")} font-semibold rounded-xl py-3 px-2 cursor-pointer`}>⏰ Pending</div>
+                        <div onClick={() => setfilter("all")} className={`${getActiveClass("all")} font-semibold rounded-xl py-3 px-2 cursor-pointer flex flex-col justify-center relative`}>📋All <button onClick={handleDeleteClick2} className='flex flex-row justify-center items-center gap-2  rounded-full border border-gray-500  bg-[#273449]  lg:p-1 xl:p-3 sm:hidden lg:block font-semibold text-red-700 absolute xl:right-3 lg:right-0'><HiOutlineTrash className='text-red-700 text-xl' /></button> </div>
+                        <div onClick={() => setfilter("completed")} className={`${getActiveClass("completed")} font-semibold rounded-xl py-3 pl-2 cursor-pointer flex flex-col justify-center relative`}>✅Completed <button onClick={clearCompleted} className='flex flex-row justify-center items-center gap-2 rounded-full border border-gray-500 bg-[#273449] xl:p-3 sm:hidden lg:block lg:p-1 font-semibold text-green-700 absolute xl:right-3 lg:right-0 '><HiOutlineTrash className='text-green-700 text-xl' /></button> </div>
+                        <div onClick={() => setfilter("pending")} className={`${getActiveClass("pending")} font-semibold rounded-xl py-3 px-2 cursor-pointer`}>⏰Pending</div>
 
                     </div>
 
@@ -73,29 +73,25 @@ const DesktopLayout = ({ filter, setfilter,setpriority,priority, getActiveClass,
 
                     </div>
 
-                    <div className=' w-full px-5 flex justify-center items-center gap-5 '>
-                        <select value={priority} onChange={(e)=>setpriority(e.target.value)} className=' text-red-500 bg-gray-900'>
-                            <option  className='text-sm text-red-500' value="High">High</option>
-                            <option  className='text-sm text-amber-400' value="Medium">Medium</option>
-                            <option  className='text-sm text-green-300' value="Low ">Low</option>
+                    <div className=' w-full px-5 flex justify-between items-center gap-5 '>
+                        <select onChange={(e) => setpriority(e.target.value)} className='hidden xl:block text-red-500 bg-gray-900 text-sm '>
+                            <option className='text-sm text-red-500' value="high">High</option>
+                            <option className='text-sm text-amber-400' value="medium">Medium</option>
+                            <option className='text-sm text-green-300' value="low">Low</option>
                         </select>
                         <input autoFocus onKeyDown={handleKeyDown} onChange={handleChange} value={input} type="text" placeholder='Add a new task...' className='bg-[#273449] w-[90%]  py-3 px-5 text-xl rounded-xl outline-0 border border-gray-500 text-[#f9fafb] placeholder:text-gray-400' />
-
+                        <input type="date" className='bg-white px-2 font-bold hidden xl:block' value={inputDate} onChange={(e) => setinputDate(e.target.value)} />
                         <button onClick={addTodo} className='w-25 py-4 text-[#f9fafb] font-bold text-xl bg-linear-to-tr from-[#000000] to-[#7415bd] rounded-xl active:text-amber-500 '>Add</button>
                     </div>
-                    <div className='flex flex-row justify-between items-center w-full pl-10  py-1'>
-                        <h1 className='py-3 text-[#f9fafb] text-2xl font-semiboldbold'>Your Tasks</h1>
-                        <div className=' flex flex-row justify-center items-center gap-5 text-2xl '>
-                            <button onClick={clearCompleted} className='flex flex-row justify-center items-center gap-2 rounded-xl border border-gray-500 bg-[#273449] py-1 px-3 font-semibold text-green-700 '><HiOutlineTrash className='text-green-700 text-2xl' /> Clear completed</button>
-                            <button onClick={handleDeleteClick2} className='flex flex-row justify-center items-center gap-2  rounded-xl border border-gray-500  bg-[#273449] py-1 px-3 font-semibold text-red-700 '><HiOutlineTrash className='text-red-700 text-2xl' />Clear all</button>
-                        </div>
+                    <div className='flex flex-row justify-center items-center w-full  py-1'>
+                        <h1 className='py-3 text-[#f9fafb] text-3xl font-semiboldbold'>Your Tasks</h1>
                     </div>
 
                     <div className='taskContainerDesktop w-full px-5 flex flex-col gap-3'>
 
                         {list.length === 0 ? (<p className='text-3xl flex justify-center text-white mt-10 text-center opacity-80'>{filter === "all" ? "No todos ! 😊 Start by adding a new task " : filter === "completed" ? "No completed todos" : "No pending todos"}</p>
                         ) : (list.map((t) => (
-                            <div key={t.id} className='flex flex-row justify-between items-center py-2.5 px-5 bg-[#273449] outline-0 border border-gray-500 rounded-xl hover:transform-3d hover:translate-x-3 transition-all duration-300 origin-center will-change-transform '>
+                            <div key={t.id} className={`flex flex-row justify-between items-center py-2.5 px-5 bg-[#273449] outline-0 border border-gray-500 rounded-xl hover:transform-3d hover:translate-x-3 transition-all duration-300 origin-center will-change-transform ${getpriority(t.priority)}`}>
 
                                 <div className='flex flex-row items-center gap-5'>
                                     <FaCheckCircle onClick={() => toggleComplete(t.id)} className={`${t.isCompleted ? "text-[#40ff00] duration-200 transition-transform scale-110 " : "text-gray-400 transition-all duration-200"} text-4xl`} />
@@ -111,15 +107,15 @@ const DesktopLayout = ({ filter, setfilter,setpriority,priority, getActiveClass,
                         )))}
 
                     </div>
-                    <div className='text-xl text-white absolute bottom-5 flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "empty" ? "z-20" : "z-0"} ${emptyInput ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible"} rounded-xl py-2 `}>Please type something!</p></div>
-                    <div className='text-xl text-white absolute bottom-5 flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "exist" ? "z-20" : "z-0"} ${TodoExist ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible "} rounded-xl py-2`}>Todo exist!</p></div>
-                    <div className='text-xl text-white absolute bottom-5 flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "Notask" ? "z-20" : "z-0"} ${NoTask ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible "} rounded-xl py-2`}>No Completed todo!</p></div>
+                    <div className='text-xl text-white absolute bottom-5 flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "empty" ? "z-20" : "z-0"} ${ToastType == "error" ? "transform-3d translate-x-0  visible " : ToastType === "warning" ? "transform-3d translate-x-0" : ToastType === "!completed" ? "transform-3d translate-x-0" : "transform-3d translate-x-200 invisible"} rounded-xl py-2 `}>{ToastMessage}</p></div>
+                    {/* <div className='text-xl text-white absolute bottom-5 flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "exist" ? "z-20" : "z-0"} ${TodoExist ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible "} rounded-xl py-2`}>Todo exist!</p></div> */}
+                    {/* <div className='text-xl text-white absolute bottom-5 flex justify-center items-center'><p className={`bg-red-500 text-center flex justify-center items-center w-[20vw] transition-all duration-500 ${TopToast === "Notask" ? "z-20" : "z-0"} ${NoTask ? "transform-3d translate-x-0  visible " : "transform-3d translate-x-200 invisible "} rounded-xl py-2`}>No Completed todo!</p></div> */}
 
                 </div>
 
 
-                <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
+                <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${ModalTypes === "delete" ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${ModalTypes === "delete" ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
                         <div className='bg-[#ff00003e] w-15 h-15 flex items-center justify-center rounded-full border-2 border-red-400 '><HiOutlineTrash className='text-4xl text-red-500' /></div>
                         <h1 className='text-4xl text-[#f9fafb] font-bold'>Delete Task?</h1>
                         <h2 className='text-xl text-gray-400'>This action cannot be undone.</h2>
@@ -130,8 +126,8 @@ const DesktopLayout = ({ filter, setfilter,setpriority,priority, getActiveClass,
                     </div>
                 </div>
 
-                <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal2 ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal2 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
+                <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${ModalTypes === "deleteAll" ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${ModalTypes === "deleteAll" ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
                         <div className='bg-[#ff00003e] w-15 h-15 flex items-center justify-center rounded-full border-2 border-red-400 '><HiOutlineTrash className='text-4xl text-red-500' /></div>
                         <h1 className='text-4xl text-[#f9fafb] font-bold'>Delete All Task?</h1>
                         <h2 className='text-xl text-gray-400'>This action cannot be undone.</h2>
@@ -142,11 +138,11 @@ const DesktopLayout = ({ filter, setfilter,setpriority,priority, getActiveClass,
                     </div>
                 </div>
 
-                <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${showModal3 ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${showModal3 ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
+                <div className={`w-full h-full fixed inset-0 backdrop-blur-xs flex justify-center items-center bg-black/70 transition-all duration-300 ${ModalTypes === "empty" ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+                    <div className={`w-fit px-20 h-80 bg-[#191f27] rounded-xl shadow-2xl border border-gray-400 flex flex-col justify-center items-center gap-3 transition-all duration-300 ${ModalTypes === "empty" ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
                         <h1 className='text-4xl text-[#f9fafb] font-bold'>No Task Buddy</h1>
                         <h2 className='text-xl text-gray-400'>Start by adding a new task.</h2>
-                        <button onClick={() => setshowModal3(false)} className='text-[#f9fafb] text-2xl px-6 py-1 rounded-lg bg-[#283647] font-semibold'>OK</button>
+                        <button onClick={() => setModalTypes("")} className='text-[#f9fafb] text-2xl px-6 py-1 rounded-lg bg-[#283647] font-semibold'>OK</button>
                     </div>
                 </div>
 
