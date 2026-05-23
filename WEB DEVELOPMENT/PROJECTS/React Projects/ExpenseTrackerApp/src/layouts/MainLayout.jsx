@@ -1,10 +1,13 @@
 import React from 'react'
+import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import Dashboard from '../pages/Dashboard'
-const MainLayout = () => {
+import { Outlet } from 'react-router-dom'
+
+const MainLayout = ({ expenses }) => {
     return (
         <>
-            <div className='min-h-screen overflow-hidden  bg-[#0f172a] flex flex-row'>
+            <div className='min-h-screen overflow-hidden bg-white dark:bg-[#0f172a] flex flex-row'>
 
                 {/* sidebar */}
                 <div className='hidden xl:block h-full '>
@@ -13,7 +16,10 @@ const MainLayout = () => {
 
                 {/* Dashboard */}
                 <div className='flex-1 h-screen px-5 '>
-                    <Dashboard />
+                    <Header />
+                    <div className=''>
+                        <Outlet />
+                    </div>
                 </div>
 
             </div>

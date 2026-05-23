@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+input[type = "date"]::webkit-calender-picker-indicator 
+{
+    filter: invert(1);
+    cursor: pointer;
+}

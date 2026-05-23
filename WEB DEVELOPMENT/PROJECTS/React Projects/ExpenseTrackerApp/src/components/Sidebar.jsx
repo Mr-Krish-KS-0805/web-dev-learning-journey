@@ -4,10 +4,12 @@ import { FiTrendingUp, FiRepeat } from 'react-icons/fi'
 import { HiOutlineWallet } from 'react-icons/hi2'
 import walletImg from '../assets/wallet.png'
 import crownImg from '../assets/crown.png'
+import { NavLink } from 'react-router-dom'
+
 const Sidebar = () => {
     return (
         <div className='h-screen flex flex-col overflow-y-auto w-55 bg-[#1e2938] border-r border-gray-500 py-2'>
-            <div className='flex items-center py-4 '>
+            <div className='flex items-center py-2 '>
                 <img src={walletImg} alt="wallet" className='w-15' />
                 <div>
                     <h1 className='text-white text-2xl font-bold'>SpendWise</h1>
@@ -15,16 +17,16 @@ const Sidebar = () => {
                 </div>
             </div>
 
-            <ul className='text-[#e2e8f0] pt-2 pl-5 flex flex-col gap-5 '>
-                <li className='flex items-center gap-3'><MdDashboard className='text-2xl' />Dashboard</li>
-                <li className='flex items-center gap-3'><MdOutlineReceiptLong className='text-2xl' />Expenses</li>
-                <li className='flex items-center gap-3'><MdAddCircleOutline className='text-2xl' />Add Expense</li>
-                <li className='flex items-center gap-3'><MdOutlineLabel className='text-2xl' />Categories</li>
-                <li className='flex items-center gap-3'><FiTrendingUp className='text-2xl' />Reports</li>
-                <li className='flex items-center gap-3'><HiOutlineWallet className='text-2xl' />Budget</li>
-                <li className='flex items-center gap-3'><FiRepeat className='text-2xl' />Recurring</li>
-                <li className='flex items-center gap-3'><MdSettings className='text-2xl' />Settings</li>
-            </ul>
+            <div className='text-[#e2e8f0] pt-2 pl-5  flex flex-col gap-5 '>
+                <NavLink to='/' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-600 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><MdDashboard className='text-2xl' />Dashboard</NavLink>
+                <NavLink to='/add' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-600 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><MdAddCircleOutline className='text-2xl' />Add Expense</NavLink>
+                <NavLink to='/Expenses' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-600 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><MdOutlineReceiptLong className='text-2xl' />Expenses</NavLink>
+                {/* <NavLink to='/Category' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-600 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><MdOutlineLabel className='text-2xl' />Categories</NavLink> */}
+                <NavLink to='/report' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-900 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><FiTrendingUp className='text-2xl' />Reports 😱</NavLink>
+                <NavLink to='/budget' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-900 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><HiOutlineWallet className='text-2xl' />Budget 😱</NavLink>
+                <NavLink to='/recurring' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-900 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><FiRepeat className='text-2xl' />Recurring 😱</NavLink>
+                <NavLink to='/setting' className={({isActive}) => `flex items-center gap-3 transition-all duration-300 ${isActive ? "bg-purple-600 text-white pl-5 py-2 font-bold rounded-l-full " : "text-gray-400"}`}><MdSettings className='text-2xl' />Settings</NavLink>
+            </div>
 
             <div className='mt-auto flex flex-col gap-2'>
 
