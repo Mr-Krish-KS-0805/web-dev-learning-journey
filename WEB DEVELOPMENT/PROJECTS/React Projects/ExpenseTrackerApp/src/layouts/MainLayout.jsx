@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom'
 const MainLayout = ({ expenses }) => {
     return (
         <>
-            <div className='min-h-screen overflow-hidden bg-white dark:bg-[#0f172a] flex flex-row'>
+            <div className='min-h-screen overflow-hidden bg-[#0f172a] flex flex-row'>
 
                 {/* sidebar */}
                 <div className='hidden xl:block h-full '>

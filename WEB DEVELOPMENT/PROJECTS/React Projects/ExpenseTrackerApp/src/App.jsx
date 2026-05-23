@@ -25,16 +25,7 @@ function App() {
     return saved !== null ? JSON.parse(saved) : true
   })
 
-  const [theme, setTheme] = useState("light")
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [theme])
-
+  const [theme, setTheme] = useState("dark")
 
 
   useEffect(() => {
@@ -76,7 +67,6 @@ function App() {
 
 
   return (
-
     <Routes>
       <Route path='/' element={<MainLayout />}>
         <Route index element={<Dashboard expenses={expenses} showAmount={showAmount} setShowAmount={setShowAmount} />} />
