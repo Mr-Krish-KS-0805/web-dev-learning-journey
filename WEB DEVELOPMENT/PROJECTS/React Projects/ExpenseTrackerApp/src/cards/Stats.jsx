@@ -7,7 +7,7 @@ import autoTable from 'jspdf-autotable';
 import { Label } from 'recharts';
 
 
-const Stats = ({ expenses, showAmount, setShowAmount }) => {
+const Stats = ({ expenses, showAmount, setShowAmount, exportCsv }) => {
     const [showMenu, setshowMenu] = useState(null)
     const [avgType, setavgType] = useState(false)
     const navigate = useNavigate();
@@ -33,9 +33,14 @@ const Stats = ({ expenses, showAmount, setShowAmount }) => {
     }
 
     const AverageDaily = (expenses) => {
-        const total = expenses.reduce((sum, item) => sum + Number(item.amount), 0)
-        const days = new Set(expenses.map(item => new Date(item.date).toDateString())).size
-        return Math.floor(total / days)
+        if (expenses.length === 0) {
+            return 0
+        } else {
+            const total = expenses.reduce((sum, item) => sum + Number(item.amount) || 0, 0)
+            const days = new Set(expenses.map(item => new Date(item.date).toDateString())).size
+            if (days === 0) return 0
+            return Math.floor(total / days)
+        }
     }
     const MonthlyAverage = (expenses) => {
         const now = new Date()
@@ -83,7 +88,7 @@ const Stats = ({ expenses, showAmount, setShowAmount }) => {
 
         if (type === "avg") {
             return [
-                { lable: avgType ?"Avg per Active Day" : "Avg per Day(This month)", action: "monavg" },
+                { lable: avgType ? "Avg per Active Day" : "Avg per Day(This month)", action: "monavg" },
                 { lable: "How it's calculated", action: "info" }
 
             ]
@@ -163,29 +168,7 @@ const Stats = ({ expenses, showAmount, setShowAmount }) => {
     }
 
 
-    const exportCsv = () => {
-        const headers = ["Title, Category, Date, Amount (INR) \n"]
-        const tableRows = expenses.map((exp) => {
-            const title = exp?.title || "NO Title";
-            const category = exp?.category || "NO Categorty"
-            const date = exp?.date || "No Date"
-            const amount = exp?.amount || 0
 
-            return `${title}, ${category}, ${new Date(date).toLocaleDateString()}, Rs.${amount},`;
-        })
-
-        const csvContent = headers.concat(tableRows).join("\n")
-
-        const blob = new Blob([csvContent], { type: "text/csv; charset=utf-8;" })
-
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.setAttribute("download", "SpendWise_Expense_Report.csv");
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
 
 
     return (
@@ -204,7 +187,7 @@ const Stats = ({ expenses, showAmount, setShowAmount }) => {
                         <ul className='flex flex-col gap- px-1 py-1'>
 
                             {getMenuOptions("spending").map((item, i) => (
-                                <li onClick={(e) => { e.stopPropagation(); handleMenuActions(item.action); setshowMenu("") }} className='hover:bg-gray-400 px-2 py-1 cursor-pointer'>{item.lable}</li>
+                                <li key={i} onClick={(e) => { e.stopPropagation(); handleMenuActions(item.action); setshowMenu("") }} className='hover:bg-gray-400 px-2 py-1 cursor-pointer'>{item.lable}</li>
                             ))}
 
                         </ul>

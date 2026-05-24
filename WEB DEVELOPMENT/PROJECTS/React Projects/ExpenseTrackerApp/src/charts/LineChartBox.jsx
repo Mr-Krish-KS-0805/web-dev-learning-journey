@@ -16,7 +16,7 @@ const LineChartBox = ({ expenses }) => {
         const date = new Date(item.date).toDateString();
 
         if (map[date]) {
-            map[date] += item.amount;
+            map[date] += Number(item.amount);
         } else {
             map[date] = item.amount
         }

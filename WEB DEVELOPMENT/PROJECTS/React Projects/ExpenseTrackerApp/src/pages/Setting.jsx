@@ -2,21 +2,28 @@ import React from 'react'
 import {
   FiSettings, FiEye, FiDownload, FiTrash2,
   FiSun, FiMoon, FiCalendar, FiUser,
-  FiMail, FiGlobe, FiInfo, FiSliders
+  FiMail, FiGlobe, FiInfo, FiDatabase, FiSliders
 } from "react-icons/fi";
+import { FaFileImport, FaCalendarDay, FaBell } from 'react-icons/fa6';
 import { FaMoneyBill1Wave } from 'react-icons/fa6';
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { MdCurrencyRupee, MdViewCompact } from "react-icons/md";
+import { BsChevronDown } from 'react-icons/bs';
 import { useState } from "react";
 
-const Setting = ({ expenses, setshowAmount, showAmount, theme, setTheme }) => {
+const Setting = ({ expenses, setExpenses, setshowAmount, showAmount, exportCsv, improtCsv }) => {
+
+
+  const [selectFWeek, setselectFWeek] = useState("Monday")
+  const [selectDayFormat, setselectDayFormat] = useState("DD MM YYYY")
+  const [OpenDropDown, setOpenDropDown] = useState(null)
 
   return (
-    <div className='w-full'>
+    <div className='w-full flex flex-col gap-5'>
       <div className='grid grid-cols-2 gap-5'>
 
         {/* GENERAL SETTING */}
-        <div className='flex flex-col border gap-5 border-gray-700 p-5'>
+        <div className='flex flex-col border gap-6 border-gray-700 p-5 bg-[#1e2938] rounded-lg'>
           <div className='flex items-center gap-3 border border-gray-400 w-fit py-1 px-3 rounded-lg'><FiSettings className='text-3xl text-purple-600' /><p className='text-white text-xl'>General</p></div>
 
           <div className='flex justify-between'>
@@ -47,26 +54,117 @@ const Setting = ({ expenses, setshowAmount, showAmount, theme, setTheme }) => {
         </div>
 
         {/* APPEARANCE SETTING */}
-        <div className='flex flex-col border gap-3 border-gray-700 p-5'>
-          <div className='flex items-center gap-3 border border-gray-400 w-fit py-1 px-3 rounded-lg'><IoColorPaletteOutline className='text-3xl text-purple-600' /><p className='text-white text-xl'>Appearance</p></div>
+        <div className='flex flex-col border gap-5 border-gray-700 p-5 bg-[#1e2938] rounded-lg'>
+
+          <div className='flex items-center gap-3 border border-gray-400 w-fit py-1 px-3 rounded-lg'><FiDatabase className='text-3xl text-purple-600' /><p className='text-white text-xl'>Data & Storage</p></div>
 
           <div className='flex justify-between'>
             <div className='flex gap-4 items-center'>
-              <FaMoneyBill1Wave className='text-white text-2xl' />
-              <p className='text-lg text-gray-400'>Theme</p>
+              <FiDownload className='text-white text-2xl' />
+              <p className='text-lg text-gray-400'>Download Data</p>
             </div>
-            <div className={` relative w-50 h-10 flex items-center rounded-full p-1 cursor-pointer border border-gray-400`}>
-              <div className={`w-25 h-8 bg-purple-500 rounded-full shadow-md transform transition ${theme === "dark" ? "translate-x-23" : "translate-x-0"}`}></div>
-              <div className='absolute flex justify-around w-full text-lg text-center'>
-                <div onClick={() => setTheme("light")} className='text-white z-20'>light</div>
-                <div onClick={() => setTheme("dark")} className='text-white z-20 pr-2'>Dark</div>
-              </div>
+            <button onClick={()=> {setTimeout(() => {exportCsv()}, 2000);}} className='flex justify-center items-center px-2 py-1 gap-2 text-purple-700 active:bg-black  rounded-lg border border-purple-900'><FiDownload /><p>Download</p></button>
+          </div>
+
+          <div className='flex justify-between'>
+            <div className='flex gap-4 items-center'>
+              <FaFileImport className='text-white text-2xl' />
+              <p className='text-lg text-gray-400'>Import Data</p>
+            </div>
+            <input type='file' accept=".csv" onChange={(e)=> improtCsv(e.target.files[0])} className=' w-60 flex justify-center items-center px-5 py-1 gap-2 text-purple-700 active:bg-black  rounded-lg border border-purple-900'/>
+          </div>
+
+          <div className='flex justify-between'>
+            <div className='flex gap-4 items-center'>
+              <FiTrash2 className='text-white text-2xl' />
+              <p className='text-lg text-gray-400'>Clear All Data</p>
+            </div>
+            <button onClick={() => setExpenses([])} className='flex justify-center items-center px-2 py-1 gap-2 text-red-900 active:bg-black  rounded-lg border border-red-900'><FiTrash2 /><p>Clear Data</p></button>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      {/* Preferences Setting */}
+      <div>
+        <div className='flex flex-col border gap-5 border-gray-700 p-5 bg-[#1e2938] rounded-lg'>
+
+          <div className='flex items-center gap-3 border border-gray-400 w-fit py-1 px-3 rounded-lg'><FiSliders className='text-3xl text-purple-600' /><p className='text-white text-xl'>Preferences</p></div>
+
+          <div className='flex justify-between'>
+            <div className='flex gap-4 items-center'>
+              <FiCalendar className='text-white text-2xl' />
+              <p className='text-lg text-gray-400'>Date Format</p>
+            </div>
+            <div className='relative flex justify-between items-center gap-5 px-2 py-1 rounded-lg text-white border border-purple-600'>
+              <span>{selectDayFormat}</span>
+              <BsChevronDown onClick={() => setOpenDropDown(OpenDropDown === "DayFormat" ? null : "DayFormat")} />
+              {OpenDropDown === "DayFormat" &&
+                <div className='absolute bg-[#1e2938] top-9 right-0 rounded-lg z-20 transition-all duration-300 text-md border border-gray-400'>
+                  {["DD MM YYYY", "MM DD YYYY", "YYYY MM DD"].map((item) => (
+                    <div onClick={() => { setselectDayFormat(item); setOpenDropDown(null) }} key={item} className='px-3 py-1 hover:bg-[#566174] cursor-pointer'>
+                      {item}
+                    </div>
+                  ))}
+                </div>}
+
             </div>
           </div>
-          <div></div>
-          <div></div>
+
+          <div className='flex justify-between'>
+            <div className='flex gap-4 items-center'>
+              <FaCalendarDay className='text-white text-2xl' />
+              <p className='text-lg text-gray-400'>First day of week</p>
+            </div>
+            <div className=' relative flex justify-between items-center gap-5 w-37 py-1 px-2 rounded-lg text-white border border-purple-600'>
+              <span className='w-1/2'>{selectFWeek}</span>
+              <BsChevronDown onClick={() => setOpenDropDown(OpenDropDown === "FirstWeek" ? null : "FirstWeek")} />
+              {OpenDropDown === "FirstWeek" &&
+                <div className='absolute bg-[#1e2938] top-9 right-0 rounded-lg z-20 transition-all duration-300 text-md border border-gray-400'>
+                  {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((item) => (
+                    <div onClick={() => { setselectFWeek(item); setOpenDropDown(null) }} key={item} className='px-3 py-0.5 hover:bg-[#566174] cursor-pointer'>
+                      {item}
+                    </div>
+                  ))}
+                </div>}
+            </div>
+          </div>
+
+          <div className='flex justify-between'>
+            <div className='flex gap-4 items-center'>
+              <FaBell className='text-white text-2xl' />
+              <p className='text-lg text-gray-400'>Notification</p>
+            </div>
+            <div onClick={() => setshowAmount(!showAmount)} className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer transition ${showAmount ? "bg-purple-400" : "bg-gray-500"}`} ><div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition ${showAmount ? "translate-x-6" : "translate-x-0"}`}></div></div>
+          </div>
+
         </div>
       </div>
+
+      <div className='flex flex-col border gap-3 border-gray-700 py-2 px-5 bg-[#1e2938] rounded-lg'>
+        <div className='flex gap-3 text-xl text-gray-400 items-center'><FiInfo className='text-purple-600 text-3xl' />  <p>About</p></div>
+        <div className='grid grid-cols-4 text-center text-gray-300'>
+          <div>
+            <p>App version</p>
+            <span className='text-gray-500'>v1.0.0</span>
+          </div>
+          <div>
+            <p>Developer</p>
+            <span className='text-gray-500'>Krish Kumar Shrivastav</span>
+          </div>
+          <div>
+            <p>Email</p>
+            <span className='text-gray-500'>kkshrivastav8252@gmail.com</span>
+          </div>
+          <div>
+            <p>Website</p>
+            <span className='text-purple-400'><a href="https://google.com" target='_blank'>https://xpense.com</a></span>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { BiPencil } from 'react-icons/bi'
 import { MdDeleteForever } from 'react-icons/md'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-const Expenses = ({ expenses, showAmount,setShowAmount, confirmDelete }) => {
+const Expenses = ({ expenses, showAmount,setShowAmount, confirmDelete, exportCsv }) => {
 
   const [search, setSearch] = useState("")
   const [selectCategory, setselectCategory] = useState("All")
@@ -56,7 +56,7 @@ const Expenses = ({ expenses, showAmount,setShowAmount, confirmDelete }) => {
   return (
     <div>
 
-      <Stats expenses={expenses} showAmount={showAmount} setShowAmount={setShowAmount} />
+      <Stats expenses={expenses} showAmount={showAmount} exportCsv={exportCsv} setShowAmount={setShowAmount} />
 
       <div className='w-full h-[70vh] border border-gray-700 flex flex-col'>
 

@@ -29,7 +29,7 @@ const RecentTransaction = ({ expenses }) => {
               </div>
             </div>
             <div className='flex flex-col items-end'>
-              <p className='text-white text-lg'>-{item.amount}</p>
+              <p className='text-red-700 text-lg'>-₹{item.amount}</p>
               <p className='text-gray-400 text-sm'>{formatedate(item.date)}</p>
             </div>
           </div>

@@ -129,8 +129,8 @@ const AddExpenses = ({ addExpenses, updateExpenses  }) => {
         </div>
 
         <div className='flex flex-row justify-end gap-5 py-5 '>
-          <button className='px-5 py-2 border border-gray-400 font-bold rounded-lg'>Cancel</button>
-          <button onClick={()=> {formData.id ? navigate("/expenses") : ""}} type='submit' className='px-5 py-2 flex flex-row justify-center items-center bg-purple-600 rounded-lg font-bold'><MdAddCircleOutline />{formData.id ? "Update Expense" : "Add Expnese"}</button>
+          <button type='button' className='px-5 py-2 border border-gray-400 font-bold rounded-lg'>Cancel</button>
+          <button type='submit' onClick={(e)=> {formData.id ? navigate("/expenses") : ""}} type='submit' className='px-5 py-2 flex flex-row justify-center items-center bg-purple-600 rounded-lg font-bold'><MdAddCircleOutline />{formData.id ? "Update Expense" : "Add Expnese"}</button>
         </div>
 
       </div>

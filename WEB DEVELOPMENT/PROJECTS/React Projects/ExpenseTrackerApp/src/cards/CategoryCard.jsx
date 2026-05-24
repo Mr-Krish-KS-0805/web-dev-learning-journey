@@ -5,26 +5,48 @@ import { MdOutlineRestaurant } from 'react-icons/md'
 
 const CategoryCard = ({ expenses }) => {
 
-  const map= {}
+  const map = {}
 
   expenses.forEach(item => {
     const Category = item.category
 
-    if(map[Category]) {
+    if (map[Category]) {
       map[Category] += Number(item.amount)
     } else {
       map[Category] = Number(item.amount)
     }
   });
-  const  max = Math.max(...Object.values(map))   
-  const maxCategory = max  
 
-  let TopCategory = "";
-   Object.entries(map).forEach(([cat, amt]) => {
-    if(amt === max) {
-      TopCategory = cat
-    }
-   });
+  var max = Math.max(...Object.values(map))
+  var maxCategory = max
+
+  var TopCategory = "";
+
+  if (expenses.length === 0) {
+    max = 0
+    TopCategory = "No expenses"
+  } else {
+
+    Object.entries(map).forEach(([cat, amt]) => {
+      if (amt === max) {
+        TopCategory = cat
+      }
+    });
+  }
+
+  const TotalExpending = (expenses) => {
+    let total = 0;
+    var percentage = "0%"
+    expenses.forEach(item => {
+      total += Number(item.amount)
+      percentage = `${Math.floor(( max / total )* 100)}%` 
+    });
+    return percentage
+
+  }
+  
+
+
 
   return (
     <div className='bg-[#1e2938] h-[25vh] flex flex-col gap-3 px-5 justify-center  border-2 border-gray-700 rounded-xl'>
@@ -39,7 +61,7 @@ const CategoryCard = ({ expenses }) => {
           <h1 className='text-lg text-gray-400'>{TopCategory}</h1>
           <p className='text-xl text-white'>₹{max}</p>
         </div>
-        <p className='text-sm text-gray-200 absolute bottom-0 right-2 bg-[#7c3aed] px-2 rounded-full'>40%</p>
+        <p className='text-sm text-gray-200 absolute bottom-0 right-2 bg-[#7c3aed] px-2 rounded-full'>{TotalExpending(expenses)}</p>
       </div>
       <p className='text-center text-gray-400 text-sm'>You spent the most on food</p>
 

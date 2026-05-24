@@ -6,13 +6,13 @@ import RecentExpenses from '../cards/RecentExpenses'
 import CategoryCard from '../cards/CategoryCard'
 import RecentTransaction from '../cards/RecentTransaction'
 
-const Dashboard = ({expenses, showAmount, setShowAmount}) => {
+const Dashboard = ({expenses, showAmount, setShowAmount, exportCsv}) => {
 
   return (
     <>
       <div className='w-full h-full'>
         
-        <Stats expenses={expenses} showAmount={showAmount} setShowAmount={setShowAmount} />
+        <Stats expenses={expenses} showAmount={showAmount} setShowAmount={setShowAmount} exportCsv={exportCsv} />
         <div className='flex flex-col xl:grid xl:grid-cols-[3.15fr_1fr] gap-5'>
           <div className='flex flex-col gap-5 '>
             <div className='grid grid-cols-2 gap-5'>

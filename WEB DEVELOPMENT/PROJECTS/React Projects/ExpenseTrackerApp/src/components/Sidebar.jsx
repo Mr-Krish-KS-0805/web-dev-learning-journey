@@ -38,13 +38,13 @@ const Sidebar = () => {
                     <button className='bg-[#7c3aed] text-white px-5 py-1 rounded-lg mt-3'>Upgrade now</button>
                 </div>
 
-                <div className='py-2 over'>
+                {/* <div className='py-2 over'>
                     <div className='flex gap-2 w-[90%] py-4 mx-3 px-3 bg-[#1e2938] border border-gray-600 text-center items-center rounded-lg'>
                         <MdOutlineDarkMode className='text-white text-2xl' />
                         <input type="checkbox" name="" id="" />
                         <span className='text-sm text-white'>Dark Mode</span>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

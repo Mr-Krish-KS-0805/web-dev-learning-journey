@@ -8,7 +8,7 @@ const SpendingOverview = ({expenses}) => {
 
     expenses.forEach((item) => {
       if(overview[item.category]) {
-        overview[item.category] += item.amount
+        overview[item.category] += Number(item.amount)
       } else {
         overview[item.category] = item.amount
       }
@@ -18,6 +18,7 @@ const SpendingOverview = ({expenses}) => {
       name:key,
       value:overview[key]
     }))
+
   }
   const data = getCategoryData(expenses)
 
