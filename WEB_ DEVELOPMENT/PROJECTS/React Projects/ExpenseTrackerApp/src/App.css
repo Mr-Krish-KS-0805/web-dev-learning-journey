@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+input[type = "date"]::webkit-calender-picker-indicator 
+{
+    filter: invert(1);
+    cursor: pointer;
+}
+
+
+body {
+    background: #0f172a;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translate(-100%, -100%) rotate(45deg);
+    }
+
+    100% {
+        transform: translate(100%, 100% rotate(45deg));
+    }
+    
+}
