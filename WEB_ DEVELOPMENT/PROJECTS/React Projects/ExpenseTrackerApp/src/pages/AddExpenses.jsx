@@ -145,7 +145,7 @@ const AddExpenses = ({ addExpenses, updateExpenses, currency, notification }) =>
           <button onClick={() => setformData({
             ...formData, title: "", amount: "", category: setSelected(null), date: null, notes: ""
           })} type='button' className='px-5 py-2 border border-gray-400 font-bold rounded-lg'>Cancel</button>
-          <button type='submit' onClick={(e) => { formData.id ? navigate("/expenses") : "" }} type='submit' className='px-5 py-2 flex flex-row justify-center items-center bg-purple-600 rounded-lg font-bold'><MdAddCircleOutline />{formData.id ? "Update Expense" : "Add Expnese"}</button>
+          <button type='submit' onClick={(e) => { formData.id ? navigate("/expenses") : "" }}  className='px-5 py-2 flex flex-row justify-center items-center bg-purple-600 rounded-lg font-bold'><MdAddCircleOutline />{formData.id ? "Update Expense" : "Add Expnese"}</button>
         </div>
 
       </div>

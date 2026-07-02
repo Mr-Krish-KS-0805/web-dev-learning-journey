@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import { Outlet } from 'react-router-dom'
 
-const MainLayout = ({ expenses, UserData, formatedate }) => {
+const MainLayout = ({ UserData, formatedate, name, DOB, email, phone, setName, setDOB, setEmail, setPhone }) => {
     return (
         <>
             <div className='min-h-screen overflow-hidden bg-[#0f172a] flex flex-row'>
@@ -15,7 +15,7 @@ const MainLayout = ({ expenses, UserData, formatedate }) => {
 
                 {/* Dashboard */}
                 <div className='flex-1 h-screen px-5 '>
-                    <Header UserData={UserData} formatedate={formatedate} />
+                    <Header UserData={UserData} formatedate={formatedate} name={name} setName={setName} DOB={DOB} setDOB={setDOB} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} />
                     <div className=''>
                         <Outlet />
                     </div>

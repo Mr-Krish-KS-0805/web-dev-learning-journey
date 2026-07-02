@@ -30,6 +30,10 @@ import DashboardSkeleton from './components/DashboardSkeleton'
 function App() {
 
   const [user, setUser] = useState(null)
+  const [name, setName] = useState("")
+  const [DOB, setDOB] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [loading, setLoading] = useState(true)
   const [expenses, setExpenses] = useState([])
   const [notification, setNotification] = useState(true)
@@ -341,7 +345,7 @@ function App() {
       <Toaster />
       <Routes>
         {/* Protected Routes  */}
-        <Route path='/' element={<ProtectedRoute user={user}> <MainLayout UserData={UserData} formatedate={formatedate} /> </ProtectedRoute>}>
+        <Route path='/' element={<ProtectedRoute user={user}> <MainLayout UserData={UserData} formatedate={formatedate} name={name} setName={setName} DOB={DOB} setDOB={setDOB} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} /> </ProtectedRoute>}>
           <Route index element={<Dashboard expenses={expenses} showAmount={showAmount} setShowAmount={setShowAmount} exportCsv={exportCsv} getSymbol={getSymbol} displayAmount={displayAmount} convertAmount={convertAmount} notification={notification} />} />
           <Route path='/add' element={<AddExpenses addExpenses={addExpenses} updateExpenses={updateExpenses} currency={currency} notification={notification} />} />
           <Route path='/expenses' element={<Expenses expenses={expenses} confirmDelete={confirmDelete} showAmount={showAmount} setShowAmount={setShowAmount} exportCsv={exportCsv} getSymbol={getSymbol} displayAmount={displayAmount} convertAmount={convertAmount} notification={notification} />} />
@@ -353,7 +357,7 @@ function App() {
         </Route>
 
         {/* Public Routes */}
-        <Route path='/signup' element={<PublicRoute user={user}><Signup /></PublicRoute>} />
+        <Route path='/signup' element={<PublicRoute user={user}><Signup name={name} DOB={DOB} email={email} phone={phone} setDOB={setDOB} setName={setName} setPhone={setPhone} setEmail={setEmail} /></PublicRoute>} />
         <Route path='/login' element={<PublicRoute user={user}><Login /></PublicRoute>} />
 
       </Routes>
