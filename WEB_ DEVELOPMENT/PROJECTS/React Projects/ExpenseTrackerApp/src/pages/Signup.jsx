@@ -35,6 +35,9 @@ const Signup = ({name, DOB, email, phone, setName, setDOB, setEmail, setPhone })
                     DOB: DOB,
                     email: email,
                     phone: phone,
+                    gender: "",
+                    location: "",
+                    profileImage: "",
                     uid: userCredential.user.uid,
                     createdAt: new Date()
                 }

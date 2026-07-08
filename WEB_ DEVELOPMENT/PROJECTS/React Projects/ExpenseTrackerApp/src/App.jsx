@@ -20,7 +20,7 @@ import { auth } from './firebase'
 import { Navigate } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import PublicRoute from './components/PublicRoute'
-import { collection, addDoc, getDocs, query, where, deleteDoc, updateDoc, doc } from 'firebase/firestore'
+import { collection, addDoc, getDocs, query, where, deleteDoc, updateDoc, doc, onSnapshot } from 'firebase/firestore'
 import { db } from './firebase'
 import toast, { Toaster } from 'react-hot-toast'
 import Swal from 'sweetalert2'
@@ -34,6 +34,8 @@ function App() {
   const [DOB, setDOB] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
+  const [gender, setGender] = useState("")
+  const [location, setLocation] = useState("")
   const [loading, setLoading] = useState(true)
   const [expenses, setExpenses] = useState([])
   const [notification, setNotification] = useState(true)
@@ -65,19 +67,18 @@ function App() {
 
   const [UserData, setUserData] = useState(null)
 
-  const getUserData = async (uid) => {
-    const docRef = doc(db, "users", uid)
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      setUserData(docSnap.data())
-    }
-  }
 
   useEffect(() => {
-    if (user) {
-      getUserData(user.uid)
-    }
+    if (!user) return;
+
+    const getUserData = onSnapshot(
+      doc(db, "users", user.uid),
+      (docSnap) => {
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+        }
+      }
+    )
   }, [user])
 
 
@@ -345,7 +346,7 @@ function App() {
       <Toaster />
       <Routes>
         {/* Protected Routes  */}
-        <Route path='/' element={<ProtectedRoute user={user}> <MainLayout UserData={UserData} formatedate={formatedate} name={name} setName={setName} DOB={DOB} setDOB={setDOB} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} /> </ProtectedRoute>}>
+        <Route path='/' element={<ProtectedRoute user={user}> <MainLayout UserData={UserData} formatedate={formatedate} name={name} setName={setName} DOB={DOB} setDOB={setDOB} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} gender={gender} setGender={setGender} location={location} setLocation={setLocation} /> </ProtectedRoute>}>
           <Route index element={<Dashboard expenses={expenses} showAmount={showAmount} setShowAmount={setShowAmount} exportCsv={exportCsv} getSymbol={getSymbol} displayAmount={displayAmount} convertAmount={convertAmount} notification={notification} />} />
           <Route path='/add' element={<AddExpenses addExpenses={addExpenses} updateExpenses={updateExpenses} currency={currency} notification={notification} />} />
           <Route path='/expenses' element={<Expenses expenses={expenses} confirmDelete={confirmDelete} showAmount={showAmount} setShowAmount={setShowAmount} exportCsv={exportCsv} getSymbol={getSymbol} displayAmount={displayAmount} convertAmount={convertAmount} notification={notification} />} />
